@@ -46,6 +46,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Reset
         maxPlayerY = 80
         GameState.sharedInstance.score = 0
+        GameState.sharedInstance.stars = 0
         gameOver = false
         
         motionManager.accelerometerUpdateInterval = 0.2
