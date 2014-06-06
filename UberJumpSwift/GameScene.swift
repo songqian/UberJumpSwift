@@ -36,7 +36,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var xAcceleration: Double = 0.0
     
     init(size: CGSize) {
-        var levelPlist = NSBundle.mainBundle().pathForResource("Level01", ofType: "plist")
+        let levelPlist = NSBundle.mainBundle().pathForResource("Level01", ofType: "plist")
         levelData = NSDictionary(contentsOfFile: levelPlist)
         endLevelY = Int(levelData["EndY"] as NSNumber)
         motionManager = CMMotionManager()
@@ -57,8 +57,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func populateBackgroundNode() {
         for index in 0..20 {
-            var imageName: String = NSString(format: "Background%02d", index+1)
-            var node = SKSpriteNode(imageNamed: imageName)
+            let imageName: String = NSString(format: "Background%02d", index+1)
+            let node = SKSpriteNode(imageNamed: imageName)
             node.anchorPoint = CGPoint(x: 0.5, y: 0.0)
             node.position = CGPoint(x: 160.0, y: Float(index)*node.size.height)
             backgroundNode.addChild(node)
@@ -67,16 +67,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func populateMidgroundNode() {
         for i in 0..10 {
-            var r = arc4random() % 2;
-            var spriteName = r > 0 ? "BranchRight" : "BranchLeft"
-            var branchNode = SKSpriteNode(imageNamed: spriteName)
+            let r = arc4random() % 2;
+            let spriteName = r > 0 ? "BranchRight" : "BranchLeft"
+            let branchNode = SKSpriteNode(imageNamed: spriteName)
             branchNode.position = CGPoint(x: 160.0, y: 500.0 * Float(i))
             midgroundNode.addChild(branchNode)
         }
     }
     
     func populateHUDNode() {
-        var star = SKSpriteNode(imageNamed: "Star")
+        let star = SKSpriteNode(imageNamed: "Star")
         star.position = CGPoint(x: 25.0, y: self.size.height-30.0)
         hudNode.addChild(star)
         
@@ -99,7 +99,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func populatePlayer() {
         player.position = CGPoint(x: 160.0, y: 80.0)
-        var sprite = SKSpriteNode(imageNamed: "Player")
+        let sprite = SKSpriteNode(imageNamed: "Player")
         player.addChild(sprite)
         
         player.physicsBody = SKPhysicsBody(circleOfRadius: sprite.size.width / 2.0)
@@ -117,12 +117,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func createStarAtPosition(position: CGPoint, type: StarType) -> StarNode {
-        var node = StarNode()
+        let node = StarNode()
         node.position = position
         node.name = "NODE_STAR"
         
         node.starType = type
-        var sprite = type == StarType.Special ? SKSpriteNode(imageNamed: "StarSpecial") : SKSpriteNode(imageNamed: "Star")
+        let sprite = type == StarType.Special ? SKSpriteNode(imageNamed: "StarSpecial") : SKSpriteNode(imageNamed: "Star")
         node.addChild(sprite)
         
         node.physicsBody = SKPhysicsBody(circleOfRadius: sprite.size.width/2.0)
@@ -134,12 +134,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func createPlatformAtPosition(position: CGPoint, type: PlatformType) -> PlatformNode {
-        var node = PlatformNode()
+        let node = PlatformNode()
         node.position = position
         node.name = "NODE_PLATFORM"
         node.platformType = type
         
-        var sprite = type == PlatformType.Break ? SKSpriteNode(imageNamed: "PlatformBreak") : SKSpriteNode(imageNamed: "Platform")
+        let sprite = type == PlatformType.Break ? SKSpriteNode(imageNamed: "PlatformBreak") : SKSpriteNode(imageNamed: "Platform")
         node.addChild(sprite)
         
         node.physicsBody = SKPhysicsBody(rectangleOfSize: sprite.size)
@@ -151,44 +151,44 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func addPlatformsFromPlist() {
-        var platforms = levelData["Platforms"] as NSDictionary
-        var platformPatterns = platforms["Patterns"] as NSDictionary
-        var platformPositions = platforms["Positions"] as NSArray
+        let platforms = levelData["Platforms"] as NSDictionary
+        let platformPatterns = platforms["Patterns"] as NSDictionary
+        let platformPositions = platforms["Positions"] as NSArray
         for platformPosition in platformPositions {
             let position = platformPosition as NSDictionary
-            var patternX = Float(position["x"] as NSNumber)
-            var patternY = Float(position["y"] as NSNumber)
-            var pattern = position["pattern"] as NSString
+            let patternX = Float(position["x"] as NSNumber)
+            let patternY = Float(position["y"] as NSNumber)
+            let pattern = position["pattern"] as NSString
             
-            var platformPattern = platformPatterns[pattern] as NSArray
+            let platformPattern = platformPatterns[pattern] as NSArray
             for platformPoint in platformPattern {
                 let point = platformPoint as NSDictionary
-                var x = Float(point["x"] as NSNumber)
-                var y = Float(point["y"] as NSNumber)
-                var type = PlatformType.fromRaw(Int(point["type"] as NSNumber))!
-                var platformNode = createPlatformAtPosition(CGPoint(x: x+patternX, y: y+patternY), type: type)
+                let x = Float(point["x"] as NSNumber)
+                let y = Float(point["y"] as NSNumber)
+                let type = PlatformType.fromRaw(Int(point["type"] as NSNumber))!
+                let platformNode = createPlatformAtPosition(CGPoint(x: x+patternX, y: y+patternY), type: type)
                 foregroundNode.addChild(platformNode)
             }
         }
     }
     
     func addStarsFromPlist() {
-        var stars = levelData["Stars"] as NSDictionary
-        var starPatterns = stars["Patterns"] as NSDictionary
-        var starPositions = stars["Positions"] as NSArray
+        let stars = levelData["Stars"] as NSDictionary
+        let starPatterns = stars["Patterns"] as NSDictionary
+        let starPositions = stars["Positions"] as NSArray
         for starPosition in starPositions {
             let position = starPosition as NSDictionary
-            var patternX = Float(position["x"] as NSNumber)
-            var patternY = Float(position["y"] as NSNumber)
-            var pattern = position["pattern"] as NSString
+            let patternX = Float(position["x"] as NSNumber)
+            let patternY = Float(position["y"] as NSNumber)
+            let pattern = position["pattern"] as NSString
             
-            var starPattern = starPatterns[pattern] as NSArray
+            let starPattern = starPatterns[pattern] as NSArray
             for starPoint in starPattern {
                 let point = starPoint as NSDictionary
-                var x = Float(point["x"] as NSNumber)
-                var y = Float(point["y"] as NSNumber)
-                var type = StarType.fromRaw(Int(point["type"] as NSNumber))!
-                var starNode = createStarAtPosition(CGPoint(x: x+patternX, y: y+patternY), type: type)
+                let x = Float(point["x"] as NSNumber)
+                let y = Float(point["y"] as NSNumber)
+                let type = StarType.fromRaw(Int(point["type"] as NSNumber))!
+                let starNode = createStarAtPosition(CGPoint(x: x+patternX, y: y+patternY), type: type)
                 foregroundNode.addChild(starNode)
             }
         }
@@ -303,7 +303,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func didBeginContact(contact: SKPhysicsContact!) {
         var updateHUD = false
-        var other = contact.bodyA.node != player ? contact.bodyA.node : contact.bodyB.node
+        let other = contact.bodyA.node != player ? contact.bodyA.node : contact.bodyB.node
         updateHUD = (other as GameObjectNode).collisionWithPlayer(player)
         if updateHUD {
             lblStars.text = "X \(GameState.sharedInstance.stars)"

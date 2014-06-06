@@ -14,10 +14,10 @@ class EndGameScene: SKScene {
         super.init(size: size)
         
         // Stars
-        var star = SKSpriteNode(imageNamed: "Star")
+        let star = SKSpriteNode(imageNamed: "Star")
         star.position = CGPoint(x: 25.0, y: self.size.height-30.0)
         self.addChild(star)
-        var lblStars = SKLabelNode(fontNamed: "ChalkboardSE-Bold")
+        let lblStars = SKLabelNode(fontNamed: "ChalkboardSE-Bold")
         lblStars.fontSize = 30.0
         lblStars.fontColor = SKColor.whiteColor()
         lblStars.position = CGPoint(x: 50.0, y: self.size.height-40.0)
@@ -26,7 +26,7 @@ class EndGameScene: SKScene {
         self.addChild(lblStars)
         
         // Score
-        var lblScore = SKLabelNode(fontNamed: "ChalkboardSE-Bold")
+        let lblScore = SKLabelNode(fontNamed: "ChalkboardSE-Bold")
         lblScore.fontSize = 60.0
         lblScore.fontColor = SKColor.whiteColor()
         lblScore.position = CGPoint(x: 160.0, y: 300.0)
@@ -35,7 +35,7 @@ class EndGameScene: SKScene {
         self.addChild(lblScore)
         
         // High Score
-        var lblHighScore = SKLabelNode(fontNamed: "ChalkboardSE-Bold")
+        let lblHighScore = SKLabelNode(fontNamed: "ChalkboardSE-Bold")
         lblHighScore.fontSize = 30.0
         lblHighScore.fontColor = SKColor.whiteColor()
         lblHighScore.position = CGPoint(x: 160.0, y: 150.0)
@@ -44,7 +44,7 @@ class EndGameScene: SKScene {
         self.addChild(lblHighScore)
         
         // Try again
-        var lblTryAgain = SKLabelNode(fontNamed: "ChalkboardSE-Bold")
+        let lblTryAgain = SKLabelNode(fontNamed: "ChalkboardSE-Bold")
         lblTryAgain.fontSize = 30.0
         lblTryAgain.fontColor = SKColor.whiteColor()
         lblTryAgain.position = CGPoint(x: 160.0, y: 50.0)
@@ -55,8 +55,8 @@ class EndGameScene: SKScene {
  
     override func touchesBegan(touches: NSSet!, withEvent event: UIEvent!) {
         // Transition back to the game
-        var gameScene = GameScene(size: self.size)
-        var reveal = SKTransition.fadeWithDuration(0.5)
+        let gameScene = GameScene(size: self.size)
+        let reveal = SKTransition.fadeWithDuration(0.5)
         self.view.presentScene(gameScene, transition: reveal)
     }
 }
